@@ -1,102 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nverse — Official Documentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载站</title>
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f5f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 卡片容器 */
+        .download-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 装饰背景线 */
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #2b2b2b, #5c5243, #9e3a32);
+        }
+
+        /* 应用图标 */
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            background-color: #2b2b2b;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-icon span {
+            color: #dcd3c6;
+            /* 修改了字号，两个字也能完美放下 */
+            font-size: 24px; 
+            font-weight: bold;
+            font-family: "Times New Roman", serif;
+            letter-spacing: 4px;
+            padding-left: 4px; /* 抵消字间距带来的视觉偏移 */
+        }
+
+        /* 标题与描述 */
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* 下载按钮 */
+        .download-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(43, 43, 43, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(43, 43, 43, 0.3);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.2);
+        }
+
+        /* 版本信息 */
+        .meta-info {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* 针对微信/QQ内置浏览器的提示（可选） */
+        .browser-tip {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff3e0;
+            color: #e65100;
+            font-size: 12px;
+            border-radius: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>加密通信平台介绍</h1>
-    <p><strong>A lightweight, future-proof encrypted communication platform.</strong></p>
-    <hr>
-  </header>
+    <div class="download-card">
+        <!-- 图标 -->
+        <div class="app-icon">
+            <span>南辞</span>
+        </div>
 
-  <main>
+        <!-- 标题 -->
+        <h1>历史交互原型</h1>
+        
+        <!-- 描述 -->
+        <p class="description">
+            让小朋友学习到历史的乐趣。<br>
+        </p>
 
-    <section>
-      <h2>1. Introduction</h2>
-      <p>
-        Nverse is a minimal, high-performance communication platform built for people
-        who care about speed, privacy, and simplicity. Designed around a zero-knowledge
-        architecture, Nverse lets teams and individuals exchange messages, files, and
-        voice notes without sacrificing control over their data.
-      </p>
-      <p>
-        Unlike traditional messengers, Nverse keeps the core tiny and efficient. Every
-        byte is encrypted, every connection is peer-verified, and every feature is
-        delivered with a deliberate, uncluttered interface. The result is a platform
-        that feels instant, secure, and oddly refreshing.
-      </p>
-      <blockquote>
-        <p>“Communication should be fast by default and private by design.”</p>
-      </blockquote>
-    </section>
+        <!-- ⚠️ 下载链接 -->
+        <a href="https://yun.139.com/shareweb/#/w/i/2yA8J6x9oda2u" class="download-btn" download="南辞历史原型.apk">
+            立即下载体验包 (APK)
+        </a>
 
-    <hr>
+        <!-- 版本信息 -->
+        <div class="meta-info">
+            <span>版本 v1.0.0</span>
+            <span>大小 ~4 MB</span>
+        </div>
 
-    <section>
-      <h2>2. Core Features</h2>
-      <p>Nverse ships with a focused set of capabilities, each optimized for reliability:</p>
-      <ul>
-        <li><strong>End-to-end Encryption</strong> — every message is sealed with modern cryptographic primitives.</li>
-        <li><strong>Ephemeral Messages</strong> — set messages to vanish automatically after they are read.</li>
-        <li><strong>Lightning Sync</strong> — conversations stay in sync across devices in near real time.</li>
-        <li><strong>Offline Mode</strong> — compose and queue messages even without a connection.</li>
-        <li><strong>Open Protocol</strong> — a documented, auditable standard anyone can inspect.</li>
-        <li><strong>Minimal Footprint</strong> — a tiny runtime that runs smoothly on almost any device.</li>
-      </ul>
-    </section>
+        <!-- 微信内置浏览器提示（因为微信通常会拦截 APK 直接下载） -->
+        <div class="browser-tip" id="wx-tip">
+            ⚠️ 提示：如果您在微信中打开此页面，请点击右上角选择“在浏览器中打开”以正常下载。
+        </div>
+    </div>
 
-    <hr>
+    <!-- 页脚声明 -->
+    <div class="footer">
+        仅用于学习交流之类的。<br>
+        &copy; 适度玩梗，尊重先烈。
+    </div>
 
-    <section>
-      <h2>3. Security &amp; Privacy</h2>
-      <p>
-        Security is not an add-on in Nverse; it is the foundation. The platform follows
-        a strict zero-knowledge model, meaning the server never sees your decrypted content.
-      </p>
-      <h3>Key Principles</h3>
-      <ul>
-        <li><strong>Zero Knowledge</strong> — encryption keys are generated and held on your device only.</li>
-        <li><strong>No Metadata Mining</strong> — Nverse minimizes what it collects and never sells data.</li>
-        <li><strong>Forward Secrecy</strong> — each session uses unique keys to protect past messages.</li>
-        <li><strong>Open Audits</strong> — the core protocol is public and independently reviewed.</li>
-        <li><strong>Transparent Logs</strong> — you control what is stored and for how long.</li>
-      </ul>
-      <blockquote>
-        <p><strong>Note:</strong> Nverse cannot read your messages, even when legally compelled to.</p>
-      </blockquote>
-    </section>
+    <script>
+        // 简单的 JavaScript：检测是否为微信环境，如果是，则显示提示
+        function isWeixin() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.indexOf('micromessenger') !== -1) {
+                return true;
+            }
+            return false;
+        }
 
-    <hr>
-
-    <section>
-      <h2>4. Getting Started</h2>
-      <p>Follow these steps to set up Nverse in under a minute:</p>
-      <ol>
-        <li>Download the Nverse client for your platform.</li>
-        <li>Create an account — no phone number required.</li>
-        <li>Generate your personal keypair on-device.</li>
-        <li>Verify at least one trusted contact out-of-band.</li>
-        <li>Start a conversation and toggle ephemeral mode if needed.</li>
-      </ol>
-      <h3>System Requirements</h3>
-      <ul>
-        <li>Any modern desktop, mobile, or web browser.</li>
-        <li>A stable internet connection for real-time sync.</li>
-      </ul>
-    </section>
-
-    <hr>
-
-  </main>
-
-  <footer>
-    <p><small>Nverse Documentation — Version 1.0</small></p>
-    <p><small>© 2025 Nverse Project. All rights reserved.</small></p>
-  </footer>
-
+        if (isWeixin()) {
+            document.getElementById('wx-tip').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
