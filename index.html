@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>南辞引导页演示</title>
+    <title>南辞导航页</title>
     <style>
-        /* 基础重置 */
+        /* ================= 基础重置 ================= */
         * {
             margin: 0;
             padding: 0;
@@ -15,8 +15,7 @@
         }
 
         body {
-            /* 这里换成你自己的二次元红色枫叶背景图 */
-            background-image: url('https://images.unsplash.com/photo-1542272201-b1ca555f8505?q=80&w=1000&auto=format&fit=crop');
+            background-image: url('https://beeimg.us.ci/temp/1f1c8006f5d7e6787b089073c0444da9.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -27,278 +26,501 @@
             overflow-x: hidden;
         }
 
-        /* 模拟手机屏幕容器，如果在电脑上看限制宽度 */
+        /* ================= 屏幕容器加大 ================= */
         .app-container {
             width: 100%;
-            max-width: 480px;
-            padding: 40px 20px;
+            max-width: 600px; /* 从 480px 放大到 600px，更宽大 */
+            padding: 25px 25px 100px 25px; /* 增加左右和顶部内边距 */
             display: flex;
             flex-direction: column;
             position: relative;
-            /* 顶部加一点暗色渐变，让白字更清晰 */
-            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.7) 100%);
+            min-height: 100vh;
         }
 
-        /* 顶部标题区 */
-        .header {
-            text-align: center;
-            margin-top: 20px;
+        /* ================= 顶部悬浮控件 ================= */
+        .top-floating {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
         }
 
-        .title {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .title span {
-            color: #ff4757; /* 导航站标题的红色 */
-        }
-
-        .welcome-badge {
-            display: inline-flex;
-            align-items: center;
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            margin-top: 20px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .icon-btn:active { transform: scale(0.9); }
+        .icon-btn svg { width: 22px; height: 22px; fill: #fff; }
+
+        .customer-service {
+            background: rgba(255, 71, 87, 0.2);
+            border-color: rgba(255, 71, 87, 0.5);
+            position: relative;
+        }
+        .customer-service::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .subtitle .icon {
-            width: 16px;
-            height: 16px;
-            fill: #fff;
+        /* ================= 头部 ================= */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .title {
+            font-size: 42px; /* 字体加大 */
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            background: linear-gradient(to right, #fff, #ffd2d2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .title span {
+            color: #ff4757;
+            -webkit-text-fill-color: #ff4757;
+        }
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 71, 87, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 71, 87, 0.4);
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #ffa5a5;
+            margin-bottom: 20px;
         }
 
-        /* 中间四宫格信息区 */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-        }
-
-        .info-item {
+        .notice-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.9);
+            color: #ffd700;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .notice-bar svg { width: 16px; height: 16px; flex-shrink: 0; fill: #ffd700;}
+        .marquee { white-space: nowrap; animation: scrollText 18s linear infinite; }
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
-        .info-item .icon {
-            width: 18px;
-            height: 18px;
+        /* ================= 页面切换 ================= */
+        .page-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-content.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 底部按钮列表区 */
+        /* ================= 卡片通用 ================= */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px; /* 加大内边距 */
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        /* 表单输入框 */
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+        .input-group input {
+            width: 100%;
+            padding: 15px; /* 输入框加高 */
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            outline: none;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+        .input-group input:focus { border-color: #ff4757; background: rgba(0,0,0,0.5); }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: #ff4757;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+        .btn-primary:active { transform: scale(0.97); background: #e83e4f; }
+
+        /* ================= 找回的按钮列表区 ================= */
         .link-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: auto; /* 将按钮推到底部 */
+            gap: 15px;
+            margin-bottom: 20px;
         }
-
         .glass-button {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 50px; /* 大圆角 */
-            text-decoration: none;
+            padding: 18px 25px; /* 按钮加高加宽 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
             color: #fff;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+        }
+        .glass-button:active { transform: scale(0.97); background: rgba(255, 255, 255, 0.25); }
+        
+        /* VIP 按钮特效 */
+        .glass-button.vip {
+            border-color: rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 255, 255, 0.05));
         }
 
-        .glass-button:active {
-            transform: scale(0.98);
-            background: rgba(255, 255, 255, 0.25);
+        .btn-left { display: flex; align-items: center; gap: 18px; }
+        .icon-wrapper { 
+            width: 36px; height: 36px; 
+            background: rgba(0,0,0,0.2); 
+            border-radius: 50%; 
+            padding: 6px; 
+            display: flex; justify-content: center; align-items: center;
         }
+        .icon-wrapper svg { width: 100%; height: 100%; }
+        .btn-text { display: flex; flex-direction: column; text-align: left; gap: 3px; }
+        .btn-title { font-size: 16px; font-weight: 600; }
+        .btn-subtitle { font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+        .arrow-icon { width: 20px; height: 20px; fill: rgba(255, 255, 255, 0.6); }
 
-        .btn-left {
+        /* ================= 底部导航 ================= */
+        .bottom-tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px; /* 适配宽屏 */
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            align-items: center;
-            gap: 15px;
+            justify-content: space-around;
+            padding: 12px 0 25px 0;
+            z-index: 100;
         }
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tab-item svg { width: 24px; height: 24px; fill: currentColor; }
+        .tab-item.active { color: #ff4757; }
+        .tab-item.active svg { filter: drop-shadow(0 0 8px rgba(255, 71, 87, 0.8)); }
 
-        /* 图标容器 */
-        .icon-wrapper {
+        /* QQ 登录按钮专有样式 */
+        .qq-login-btn {
+            background: #12B7F5; /* QQ蓝 */
+            color: white;
+            border: none;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 24px;
-            height: 24px;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(18, 183, 245, 0.4);
         }
-        
-        .icon-wrapper svg {
-            width: 100%;
-            height: 100%;
-        }
+        .qq-login-btn:active { background: #0f9dcf; }
+        .qq-login-btn svg { width: 24px; height: 24px; fill: white; }
 
-        .btn-text {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .btn-title {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .btn-subtitle {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .arrow-icon {
-            width: 16px;
-            height: 16px;
-            fill: rgba(255, 255, 255, 0.7);
-        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
         
-        <!-- 顶部标题区 -->
+        <!-- 顶部悬浮控件 -->
+        <div class="top-floating">
+            <div class="icon-btn" onclick="alert('返回上一页')">
+                <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+            </div>
+            <div class="icon-btn customer-service" onclick="window.open('https://wpa.qq.com/msgrd?v=3&uin=你的QQ号&site=qq&menu=yes', '_blank')">
+                <svg viewBox="0 0 24 24"><path d="M20 12h-2v-2c0-3.31-2.69-6-6-6S6 6.69 6 10v2H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4v-8H6v-2c0-2.21 1.79-4 4-4s4 1.79 4 4v2h-2v8h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2z"/></svg>
+            </div>
+        </div>
+
+        <!-- 头部标题区 -->
         <div class="header">
-            <h1 class="title">NANCI<span>引导页</span></h1>
-            <div class="welcome-badge">
-                ✦ 欢迎你的到来 ✦
-            </div>
-            
-            <div class="subtitle">
-                <!-- 靶心图标 SVG -->
-                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                独立开发你的引导页
-                <span style="opacity: 0.6;">|</span>
-                <span>一键定制你的引导页</span>
+            <h1 class="title">NANCIDANGHANG<span>引导页</span></h1>
+            <div class="welcome-badge">✦ 欢迎你的到来 ✦</div>
+            <div class="notice-bar">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <div class="marquee">欢迎来到南辞的导航页，往下滑进入卡网😏</div>
             </div>
         </div>
 
-        <!-- 四宫格信息卡片 -->
-        <div class="info-grid">
-            <div class="info-item">
-                <!-- 闪电图标 -->
-                <svg class="icon" viewBox="0 0 24 24" fill="#FFD700"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
-                24小时不间断提供服务
+        <!-- ==================== 页面1: 首页 ==================== -->
+        <div id="page-home" class="page-content active">
+            
+            <!-- 专属订单查询模块 -->
+            <div class="glass-card" style="text-align: center;">
+                <h2 style="font-size: 18px; margin-bottom: 12px;">鬼头爱录关</h2>
+                <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">😱</p>
+                <div style="display: flex; gap: 10px;">
+                    <input type="url" id="queryUrl" placeholder="例：http://faka.xiaoq.com" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white; outline: none;">
+                    <button class="btn-primary" style="width: auto; padding: 0 25px; font-size: 14px;" onclick="checkOrder()">查询</button>
+                </div>
             </div>
-            <div class="info-item">
-                <!-- 锁图标 -->
-                <svg class="icon" viewBox="0 0 24 24" fill="#FFD700"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
-                24小时在线
-            </div>
-            <div class="info-item">
-                <!-- 盾牌图标 -->
-                <svg class="icon" viewBox="0 0 24 24" fill="#A0D2FF"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                稳定项目
-            </div>
-            <div class="info-item">
-                <!-- 握手/服务图标 -->
-                <svg class="icon" viewBox="0 0 24 24" fill="#A0D2FF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                稳定域名
+
+            <!-- 【找回的按钮区】 -->
+            <div class="link-list">
+                <!-- 官方频道 -->
+                <a onclick="window.open('https://https://t.me/fdgdtfgf', '_blank')" class="glass-button">
+                    <div class="btn-left">
+                        <div class="icon-wrapper"><svg viewBox="0 0 24 24" fill="#ff4757"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+                        <div class="btn-text">
+                            <span class="btn-title">官方通知频道</span>
+                            <span class="btn-subtitle">加入获取最新动态</span>
+                        </div>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </a>
+
+                <!-- 卡网入口 -->
+                <a onclick="window.open('https://wenfaka.cn/shop/N6PRY4RW', '_blank')" class="glass-button">
+                    <div class="btn-left">
+                        <div class="icon-wrapper"><svg viewBox="0 0 24 24" fill="#D4A373"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div>
+                        <div class="btn-text">
+                            <span class="btn-title">南辞卡网</span>
+                            <span class="btn-subtitle">进入查看秘密😍</span>
+                        </div>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </a>
+
+                <!-- QQ售后群 -->
+                <a onclick="window.open('游龙.top/cgi-bin/qm/qr?k=1135236281', '_blank')" class="glass-button">
+                    <div class="btn-left">
+                        <div class="icon-wrapper"><svg viewBox="0 0 24 24" fill="#3B82F6"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                        <div class="btn-text">
+                            <span class="btn-title">游龙工具</span>
+                            <span class="btn-subtitle">点击跳转</span>
+                        </div>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </a>
+
+                <!-- 在线客服 -->
+                <a onclick="window.open('https://wpa.qq.com/msgrd?v=3&uin=3932194646&site=qq&menu=yes', '_blank')" class="glass-button">
+                    <div class="btn-left">
+                        <div class="icon-wrapper"><svg viewBox="0 0 24 24" fill="#10B981"><path d="M20 12h-2v-2c0-3.31-2.69-6-6-6S6 6.69 6 10v2H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4v-8H6v-2c0-2.21 1.79-4 4-4s4 1.79 4 4v2h-2v8h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2z"/></svg></div>
+                        <div class="btn-text">
+                            <span class="btn-title">联系南辞</span>
+                            <span class="btn-subtitle">工作时间 9:00 - 24:00</span>
+                        </div>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </a>
+
+                <!-- VIP -->
+                <a onclick="window.open('https://你的VIP页面.com', '_blank')" class="glass-button vip">
+                    <div class="btn-left">
+                        <div class="icon-wrapper" style="background: rgba(255,215,0,0.3);">
+                            <svg viewBox="0 0 24 24" fill="#FFD700"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <div class="btn-text">
+                            <span class="btn-title" style="color: #FFD700;">加入 VIP 赞助特权</span>
+                            <span class="btn-subtitle">解锁全网资源高速通道</span>
+                        </div>
+                    </div>
+                    <svg class="arrow-icon" style="fill: #FFD700;" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </a>
             </div>
         </div>
 
-        <!-- 底部毛玻璃按钮组 -->
-        <div class="link-list">
+        <!-- ==================== 页面2: 我的 (QQ登录中心) ==================== -->
+        <div id="page-profile" class="page-content">
             
-            <!-- 官方通知频道 -->
-            <a href="#" class="glass-button">
-                <div class="btn-left">
-                    <div class="icon-wrapper">
-                        <!-- 喇叭图标 -->
-                        <svg viewBox="0 0 24 24" fill="#ff4757"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><path d="M9.5 9.5l-2 2 2 2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <div class="btn-text">
-                        <span class="btn-title">官方通知频道</span>
-                        <span class="btn-subtitle">@NANCI123 加入</span>
-                    </div>
-                </div>
-                <!-- 右箭头 -->
-                <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-            </a>
+            <!-- 未登录状态 -->
+            <div id="login-panel" class="glass-card">
+                <h2 style="font-size: 20px; margin-bottom: 20px; text-align: center;">用户登录</h2>
+                
+                <!-- 模拟 QQ 登录按钮 -->
+                <button class="btn-primary qq-login-btn" onclick="qqLogin()">
+                    <!-- QQ 企鹅 SVG -->
+                    <svg viewBox="0 0 1024 1024"><path d="M824.8 613.2c-16-51.4-34.4-94.6-62.7-165.3C766.5 262.2 689.3 112 511.5 112 331.7 112 256.2 265.2 261 447.9c-28.4 70.8-46.7 113.7-62.7 165.3-22.3 71.3-27 115-13 141.1 21.1 39.3 82.6 48.5 125.1 22.1 17.3-10.7 30.4-22 45.3-32.2 34 23 75 35.4 155.3 35.4 80.7 0 121.7-12.4 155.9-35.6 14.8 10.2 27.9 21.6 45.2 32.4 42.4 26.4 103.9 17.1 125.1-22.1 13.8-26.1 9.2-69.8-13.4-141.1zM511.5 714.5c-49.1 0-88.9-15.5-88.9-34.6s39.8-34.6 88.9-34.6 88.9 15.5 88.9 34.6-39.8 34.6-88.9 34.6zm-56-185.6c-23.5 0-42.5-32.3-42.5-72.1s19-72.1 42.5-72.1 42.5 32.3 42.5 72.1-19 72.1-42.5 72.1zm112 0c-23.5 0-42.5-32.3-42.5-72.1s19-72.1 42.5-72.1 42.5 32.3 42.5 72.1-19 72.1-42.5 72.1z"/></svg>
+                    QQ 授权快捷登录
+                </button>
 
-            <!-- 卡网入口 -->
-            <a href="#" class="glass-button">
-                <div class="btn-left">
-                    <div class="icon-wrapper">
-                        <!-- 包裹图标 -->
-                        <svg viewBox="0 0 24 24" fill="#D4A373"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                    </div>
-                    <div class="btn-text">
-                        <span class="btn-title">卡网入口</span>
-                        <span class="btn-subtitle">点击进入</span>
-                    </div>
-                </div>
-                <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-            </a>
+                <div style="text-align: center; margin: 15px 0; color: rgba(255,255,255,0.4); font-size: 12px;">— 绑定后即可同步数据 —</div>
 
-            <!-- QQ售后群 -->
-            <a href="#" class="glass-button">
-                <div class="btn-left">
-                    <div class="icon-wrapper">
-                        <!-- 双人图标 -->
-                        <svg viewBox="0 0 24 24" fill="#3B82F6"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                    </div>
-                    <div class="btn-text">
-                        <span class="btn-title">QQ售后群</span>
-                        <span class="btn-subtitle">点击加入群聊</span>
-                    </div>
+                <div class="input-group">
+                    <label>专属发卡网址 <span style="color:#ff4757">*必填</span></label>
+                    <input type="url" id="loginSiteUrl" placeholder="例：http://faka.xiaoq.com">
                 </div>
-                <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-            </a>
+                <!-- 绑定网址的确认按钮 -->
+                <button class="btn-primary" onclick="bindSite()" style="background: rgba(255,255,255,0.2);">确认绑定此网址</button>
+            </div>
 
-            <!-- Telegram 售后 -->
-            <a href="#" class="glass-button">
-                <div class="btn-left">
-                    <div class="icon-wrapper">
-                        <!-- 纸飞机图标 -->
-                        <svg viewBox="0 0 24 24" fill="#3B82F6"><path d="M21.3 3.7L2.7 10.7c-1.1.4-1.1 1.9 0 2.3l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.2.3l2.5-3.3 4.6 3.4c.9.7 2.1.2 2.4-.9l3.8-14.5c.3-1.1-.8-2.1-1.9-1.6zM8.6 13.7l8.9-5.7-7.3 6.7-.3 3.4-1.3-4.4z"/></svg>
-                    </div>
-                    <div class="btn-text">
-                        <span class="btn-title">Telegram 售后</span>
-                        <span class="btn-subtitle">点击联系客服</span>
-                    </div>
-                </div>
-                <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-            </a>
+            <!-- 已登录状态 -->
+            <div id="user-panel" class="glass-card" style="display: none; text-align: center;">
+                <!-- QQ头像展示位置 -->
+                <img id="qqAvatar" src="https://q1.qlogo.cn/g?b=qq&nk=10001&s=100" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); margin-bottom: 15px;">
+                <h2 style="font-size: 20px; margin-bottom: 5px;">欢迎回来，<span id="displayUser" style="color: #12B7F5;">QQ用户</span></h2>
+                <p style="font-size: 13px; color: #ccc; margin-bottom: 20px;">
+                    当前绑定站点：<br>
+                    <span id="displayUrl" style="color: #ffd700; font-weight: bold; word-break: break-all;"></span>
+                </p>
+                
+                <button class="btn-primary" onclick="logout()" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">退出 QQ 登录</button>
+            </div>
 
         </div>
     </div>
+
+    <!-- 底部固定导航栏 (只有两个选项) -->
+    <div class="bottom-tabbar">
+        <a onclick="switchTab('home', this)" class="tab-item active">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>首页</span>
+        </a>
+        <a onclick="switchTab('profile', this)" class="tab-item">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <!-- JS 逻辑 -->
+    <script>
+        // 1. 页面切换
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+            document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+            document.getElementById('page-' + tabId).classList.add('active');
+        }
+
+        // 2. QQ 登录接口逻辑
+        function qqLogin() {
+            // 南辞混淆概念这里应该跳转到 QQ 互联的授权页面
+            // 示例格式：
+            // const appId = "EMINGYUANYANG";
+            // const redirectUri = encodeURIComponent("http://你的域名.com/callback");
+            // window.location.href = `https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=${appId}&redirect_uri=${redirectUri}&state=test`;
+            
+            // 【演示环境】直接模拟授权成功
+            alert('正在唤起 QQ 授权登录... (正式版请在此处接入 QQ互联 SDK)');
+            
+            // 模拟获取到了用户信息
+            setTimeout(() => {
+                const userSite = document.getElementById('loginSiteUrl').value;
+                if(!userSite) {
+                    alert('请先在下方输入您的专属发卡网址，再进行 QQ 登录绑定！');
+                    return;
+                }
+                if (!userSite.startsWith('http://') && !userSite.startsWith('https://')) {
+                    alert('网址格式不正确，必须包含 http:// 或 https://');
+                    return;
+                }
+                // QQ 昵称和头像
+                showUserPanel("✨南辞✨", userSite, "https://beeimg.us.ci/temp/d11bc6a625df7ab8b8777bc5beeafa15.jpg");
+            }, 1000);
+        }
+
+        // 3. 单独点击确认绑定按钮
+        function bindSite() {
+            const site = document.getElementById('loginSiteUrl').value;
+            if(!site) {
+                alert('请先输入网址！');
+                return;
+            }
+            localStorage.setItem('xiaoq_site', site);
+            alert('网址：' + site + ' 已保存，请点击上方 QQ 登录！');
+        }
+
+        // 4. 显示用户面板
+        function showUserPanel(nickname, siteUrl, avatarUrl) {
+            document.getElementById('login-panel').style.display = 'none';
+            document.getElementById('user-panel').style.display = 'block';
+            
+            document.getElementById('displayUser').innerText = nickname;
+            document.getElementById('displayUrl').innerText = siteUrl;
+            if(avatarUrl) document.getElementById('qqAvatar').src = avatarUrl;
+            
+            localStorage.setItem('xiaoq_user', nickname);
+            localStorage.setItem('xiaoq_site', siteUrl);
+            localStorage.setItem('xiaoq_avatar', avatarUrl || '');
+        }
+
+        // 5. 退出登录
+        function logout() {
+            document.getElementById('login-panel').style.display = 'block';
+            document.getElementById('user-panel').style.display = 'none';
+            localStorage.clear();
+            alert('已退出登录');
+        }
+
+        // 6. 首页查单逻辑
+        function checkOrder() {
+            const queryUrl = document.getElementById('queryUrl').value;
+            if (!queryUrl) {
+                alert('请先输入你的专属发卡网址！');
+                return;
+            }
+            if (!queryUrl.startsWith('http://') && !queryUrl.startsWith('https://')) {
+                alert('网址格式不正确，必须包含 http:// 或 https://');
+                return;
+            }
+            alert('正在向站点 ' + queryUrl + ' 请求订单数据...');
+        }
+
+        // 页面加载恢复登录状态
+        window.onload = function() {
+            const savedUser = localStorage.getItem('xiaoq_user');
+            const savedSite = localStorage.getItem('xiaoq_site');
+            const savedAvatar = localStorage.getItem('xiaoq_avatar');
+            if(savedUser && savedSite) {
+                showUserPanel(savedUser, savedSite, savedAvatar);
+            }
+        }
+    </script>
 
 </body>
 </html>
